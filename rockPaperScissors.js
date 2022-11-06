@@ -1,3 +1,5 @@
+
+// Function to randomly roll a number between 1 and 3 to aid in choosing a selection.
 function getComputerChoice()
 {
     let roll = Math.floor(Math.random() * 3)+1;  
@@ -15,42 +17,99 @@ function getComputerChoice()
 
     }
     
-    
+// Function to grab User Input in order to play against the computer. 
 function playerSelection()
     {
         
-        let playerHand = prompt("Please make a choice: Rock, Paper or Scissors").toLowerCase();
+        let playerHand = prompt("Please make a choice: Rock, Paper or Scissors");
         return playerHand;
     }
+
     
-    
+const playerHand = playerSelection().toLowerCase();
+const computerSelection = getComputerChoice();  
+
+// Function to play a round with playerHand and computerSelection as Parameters.  These are compared and a winner is decided.
 function playRound(playerHand, computerSelection)
     
 {
     if(playerHand === computerSelection){
-        results = `The computer chose ${computerSelection}. This round is a tie, no points awarded`;
-        return `${results}, ${pScore =0}, ${cScore = 0}`;
+        return null;
     }
         
     else if (playerHand === 'rock' && computerSelection === 'paper'){
-        results = `The computer chose ${computerSelection}. Paper beats Rock, computer wins this round!`
-        return `${results}, ${pScore=0}, ${cScore = 0}`;
-        }
+        return computerSelection;}
         
     else if (playerHand === 'rock' && computerSelection === 'scissors'){
-        results = `The computer chose ${computerSelection}. Rock  beats Scissors, Player wins this round!`
-        return `${results}, ${pScore=1}, ${cScore = 0}`;        }
+        return playerHand;        }
     
     else if (playerHand === 'scissors' && computerSelection === 'paper'){
-        results = `The computer chose ${computerSelection}. Scissors beats Paper, Player wins this round!`
-        return `${results}, ${pScore=1}, ${cScore = 0}`;        }
+        return playerHand;        }
 
     else if (playerHand === 'scissors' && computerSelection === 'rock'){
-        results = `The computer chose ${computerSelection}. Rock beats Scissors, Computer wins this round!`
-        return `${results}, ${pScore=0}, ${cScore = 1}`;        }
+        return computerSelection;        }
 
     else if (playerHand === 'paper' && computerSelection === 'scissors'){
-        results = `The computer chose ${computerSelection}. Scissors beats Paper, Computer wins this round!`
-        return `${results}, ${pScore=0}, ${cScore = 1}`;        }
+        return computerSelection;        }
     
 }
+
+
+// Function for awarding points to associated winner of each round.  playerHand and computerSelection are compared.
+function getRoundWinner(playerHand, computerSelection){
+
+    if(playerHand = playRound()){
+        return playerHand;
+    }
+
+    else if(computerSelection = playRound()){
+        return computerSelection;
+    }
+
+}
+
+function game(){
+    console.log("Welcome!");
+    for (let round = 0; round < 5; round++)
+    {
+        let scorePlayer = 0;
+        let scoreComputer = 0;
+        console.log(`this is round ${round}`);
+        const playerHand = playerSelection();
+        const computerSelection = getComputerChoice();
+        console.log(`player chose ${playerHand}`);
+        console.log(`computer chose ${computerSelection}`);
+        playRound(playerHand, computerSelection);
+        // console.log(playRound(playerHand, computerSelection));
+        // console.log(`winner of this round is: ${playRound(playerHand,computerSelection)}`);
+        // console.log(getRoundWinner());
+        if(getRoundWinner(playerHand, computerSelection) === playerHand){
+            return scorePlayer++;
+        }
+        else if(getRoundWinner(playerHand, computerSelection) === computerSelection){
+            return scoreComputer++;
+        }
+        console.log(scoreComputer);
+        console.log(scorePlayer);
+
+    }
+
+    console.log("Game Over!")
+    if(scorePlayer > scoreComputer){
+        console.log(`Player was the winner with ${scorePlayer} points!`);
+    }
+
+    else if(scoreComputer > scorePlayer){
+        console.log(`Computer was the winner with ${scoreComputer} points!`);
+    }
+
+    else{
+        console.log(`There was a tie! the computer scored ${scoreComputer} and the player scored ${scorePlayer}`);
+    }
+    console.log("------");
+    console.log(scoreComputer);
+    console.log("------");
+    console.log(scorePlayer);
+}
+
+game();
