@@ -1,8 +1,9 @@
+let handChoice=['rock', 'paper', 'scissors'];
 
 // Function to randomly roll a number between 1 and 3 to aid in choosing a selection.
 function getComputerChoice()
 {
-    let roll = Math.floor(Math.random() * 3)+1;  
+    let roll = Math.floor(Math.random() * handChoice.length)+1;  
     
     if(roll === 1){
         computerHand ="rock";
@@ -15,51 +16,77 @@ function getComputerChoice()
         return computerHand;
     }
 
-    }
+}
     
 // Function to grab User Input in order to play against the computer. 
 function playerSelection()
     {
         
-        let playerHand = prompt("Please make a choice: Rock, Paper or Scissors");
-        return playerHand;
+    let playerHand = prompt('Please enter: rock, paper, or scissors!');
+    while(playerHand == null){
+        playerHand = prompt('Please enter: rock, paper, or scissors!');
+    }
+    playerHand = playerHand.toLowerCase();
+    let handCheck = validatePlayerHand(playerHand);
+    console.log(handCheck);
+
+    while(handCheck == false)
+    {
+        playerHand = prompt('Please enter: rock, paper, or scissors!');
+        playerHand = playerHand.toLowerCase();
+        handCheck = validatePlayerHand(playerHand);
+        console.log(handCheck);
     }
 
+
+    return playerHand;
+
+
+    }
     
-const playerHand = playerSelection().toLowerCase();
-const computerSelection = getComputerChoice();  
+function validatePlayerHand(choice){
+    return handChoice.includes(choice);
+
+}
+let playerRoll = playerSelection();
+let computerSelection = getComputerChoice();  
 
 // Function to play a round with playerHand and computerSelection as Parameters.  These are compared and a winner is decided.
-function playRound(playerHand, computerSelection)
+function playRound(playerRoll, computerSelection)
     
 {
-    if(playerHand === computerSelection){
+
+
+    if(playerRoll === computerSelection){
         return null;
     }
         
-    else if (playerHand === 'rock' && computerSelection === 'paper'){
-        return computerSelection;}
+    else if (playerRoll === 'rock' && computerSelection === 'paper'){
+        return 'paper';}
         
-    else if (playerHand === 'rock' && computerSelection === 'scissors'){
-        return playerHand;        }
+    else if (playerRoll === 'rock' && computerSelection === 'scissors'){
+        return 'rock';        }
     
-    else if (playerHand === 'scissors' && computerSelection === 'paper'){
-        return playerHand;        }
+    else if (playerRoll === 'scissors' && computerSelection === 'paper'){
+        return 'scissors';        }
 
-    else if (playerHand === 'scissors' && computerSelection === 'rock'){
-        return computerSelection;        }
+    else if (playerRoll === 'scissors' && computerSelection === 'rock'){
+        return 'rock';        }
 
-    else if (playerHand === 'paper' && computerSelection === 'scissors'){
-        return computerSelection;        }
+    else if (playerRoll === 'paper' && computerSelection === 'scissors'){
+        return 'scissors';        }
+    else if(playerRoll === 'paper' && computerSelection === 'rock'){
+        return 'paper';
+    }
     
 }
 
 
 // Function for awarding points to associated winner of each round.  playerHand and computerSelection are compared.
-function getRoundWinner(playerHand, computerSelection){
+function getRoundWinner(playerRoll, computerSelection){
 
-    if(playerHand = playRound()){
-        return playerHand;
+    if(playerRoll = playRound()){
+        return playerRoll;
     }
 
     else if(computerSelection = playRound()){
@@ -68,25 +95,34 @@ function getRoundWinner(playerHand, computerSelection){
 
 }
 
-function game(){
+function game()
+{
+    
     console.log("Welcome!");
-    for (let round = 0; round < 5; round++)
+    for (let round = 1; round < 6; round++)
     {
         let scorePlayer = 0;
         let scoreComputer = 0;
-        console.log(`this is round ${round}`);
-        const playerHand = playerSelection();
-        const computerSelection = getComputerChoice();
-        console.log(`player chose ${playerHand}`);
+        console.log(`this is round ${round} of 5 rounds`);
+        let playerRoll = playerSelection();
+        let computerSelection = getComputerChoice();
+        console.log(`player chose ${playerRoll}`);
         console.log(`computer chose ${computerSelection}`);
-        playRound(playerHand, computerSelection);
-        // console.log(playRound(playerHand, computerSelection));
-        // console.log(`winner of this round is: ${playRound(playerHand,computerSelection)}`);
-        // console.log(getRoundWinner());
-        if(getRoundWinner(playerHand, computerSelection) === playerHand){
+        playRound(playerRoll, computerSelection);
+        let singleRound = playRound(playerRoll,computerSelection);
+
+        console.log('------')
+        console.log(playerRoll);
+        console.log(computerSelection);
+        // console.log(getRoundWinner(playerRoll,computerSelection));
+        console.log(singleRound);
+        console.log('------');
+        if(singleRound == playerRoll){
+            console.log(`The winner of this round is ${singleRound}`);
             return scorePlayer++;
         }
-        else if(getRoundWinner(playerHand, computerSelection) === computerSelection){
+        else if(singleRound == computerSelection){
+            console.log(`The winner of this round is ${singleRound}`);
             return scoreComputer++;
         }
         console.log(scoreComputer);
@@ -94,7 +130,7 @@ function game(){
 
     }
 
-    console.log("Game Over!")
+    console.log("Game Over!");
     if(scorePlayer > scoreComputer){
         console.log(`Player was the winner with ${scorePlayer} points!`);
     }
@@ -112,4 +148,6 @@ function game(){
     console.log(scorePlayer);
 }
 
+// console.log(playerRoll);
+// console.log(computerSelection);
 game();
